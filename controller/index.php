@@ -38,7 +38,7 @@ foreach (getallheaders() as $header => $value) {
 if (!isset($MLOG2WAFFLE_DEBUG)) {
    $MLOG2WAFFLE_DEBUG = FALSE;
 }
-$remote_address = apache_getenv("REMOTE_ADDR");
+$remote_address = $_SERVER["REMOTE_ADDR"];
 
 // Validate sensor account
 $login_status = sensorLogin($remote_address, $matches[1], $http_header["USER"], $http_header["PASS"]);
@@ -46,7 +46,7 @@ $login_status = sensorLogin($remote_address, $matches[1], $http_header["USER"], 
 if ($login_status['status'] == 1) {
     $sensor_id   = $login_status['sensor_id'];
     // Tell do Apache the "username", to register on logs
-    apache_setenv("REMOTE_USER", $login_status['sensor_name']);
+    $_SERVER["REMOTE_USER"] = $login_status['sensor_name'];
 } elseif ($login_status['status'] == 0) {
     header("HTTP/1.1 403 Forbidden");
     header("Status: 403");

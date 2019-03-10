@@ -495,7 +495,7 @@ if (file_exists("../config.php")) {
         print "&nbsp;&nbsp; session Extension: missing.<br/>";
         $extensionError = true;
     }
-    if (apache_getenv("REMOTE_ADDR")) {
+    if ($_SERVER["REMOTE_ADDR"]) {
         print "&nbsp;&nbsp; Running on Apache: Ok;<br/>";
     } else {
         print "&nbsp;&nbsp; Not running on Apache: missing.<br/>";
